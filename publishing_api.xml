@@ -1,0 +1,297 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>publishing_api</name>
+    </assembly>
+    <members>
+        <member name="T:publishing_api.BasicAuth.BasicAuthenticationHandler">
+            <summary>
+            Реализация простой аутентификации
+            </summary>
+        </member>
+        <member name="F:publishing_api.BasicAuth.BasicAuthenticationHandler.AuthorizationHeaderName">
+            <summary>
+            Наименование заголовка авторизации
+            </summary>
+        </member>
+        <member name="F:publishing_api.BasicAuth.BasicAuthenticationHandler.BasicSchemeName">
+            <summary>
+            Наименование схемы аутетификации
+            </summary>
+        </member>
+        <member name="F:publishing_api.BasicAuth.BasicAuthenticationHandler._userName">
+            <summary>
+            Логин. Берем из файла конфигурации проекта
+            </summary>
+        </member>
+        <member name="F:publishing_api.BasicAuth.BasicAuthenticationHandler._password">
+            <summary>
+            Пароль. Берем из файла конфигурации проекта
+            </summary>
+        </member>
+        <member name="M:publishing_api.BasicAuth.BasicAuthenticationHandler.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions},Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.UrlEncoder,Microsoft.AspNetCore.Authentication.ISystemClock,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Конструктор
+            </summary>
+        </member>
+        <member name="M:publishing_api.BasicAuth.BasicAuthenticationHandler.HandleAuthenticateAsync">
+            <summary>
+            Обработчик простой аутентификации
+            </summary>
+        </member>
+        <member name="M:publishing_api.BasicAuth.BasicAuthenticationHandler.ValidateCredentials(System.String,System.String)">
+            <summary>
+            Проверка логина и пароля
+            </summary>
+        </member>
+        <member name="T:publishing_api.Controllers.PublishingController">
+            <summary>
+            Контроллер публикации
+            </summary>
+        </member>
+        <member name="F:publishing_api.Controllers.PublishingController._directory">
+            <summary>
+            Наименование директории для сохранения события-новости
+            </summary>
+        </member>
+        <member name="F:publishing_api.Controllers.PublishingController._logger">
+            <summary>
+            Логгер
+            </summary>
+        </member>
+        <member name="M:publishing_api.Controllers.PublishingController.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Конструктор
+            </summary>
+        </member>
+        <member name="M:publishing_api.Controllers.PublishingController.PublishingEventNews(publishing_api.Entities.EventNews)">
+            <summary>
+            Публикация события-новости
+            </summary>
+            <response code="401">Несанкционированный доступ</response>
+            <response code="201">Событие опубликовано</response>
+            <response code="500">Произошла ошибка</response>
+        </member>
+        <member name="M:publishing_api.Controllers.PublishingController.CreateDirectoryIfNotExists">
+            <summary>
+            Создание директории, если ее не существует
+            </summary>
+        </member>
+        <member name="M:publishing_api.Controllers.PublishingController.MakeFileName(System.Int32)">
+            <summary>
+            Создание имени файла
+            </summary>
+        </member>
+        <member name="M:publishing_api.Controllers.PublishingController.SerializeEventNews(publishing_api.Entities.EventNews)">
+            <summary>
+            Сериализация события-новости
+            </summary>
+        </member>
+        <member name="M:publishing_api.Controllers.PublishingController.StoreEventNews(System.String,System.Byte[])">
+            <summary>
+            Сохранение события-новости в директорию
+            </summary>
+        </member>
+        <member name="T:publishing_api.Entities.Author">
+            <summary>
+            Автор новости
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.Author.id">
+            <summary>
+            Идентификатор автора
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.Author.name">
+            <summary>
+            ФИО автора
+            </summary>
+        </member>
+        <member name="T:publishing_api.Entities.Code">
+            <summary>
+            Код новости
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.Code.id">
+            <summary>
+            18-разрядный идентификатор
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.Code.type">
+            <summary>
+            Тип кода и соответствие общепринятым справочникам.
+            [
+            "OKATO",
+            "IPTC",
+            "OKSM",
+            "MOEX",
+            "PRODUCT",
+            "OTHER"
+            ]
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.Code.name_ru">
+            <summary>
+            Текстовое наименование кода на русском языке
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.Code.name_en">
+            <summary>
+            Текстовое наименование кода на английском языке
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.Code.code">
+            <summary>
+            Код
+            </summary>
+        </member>
+        <member name="T:publishing_api.Entities.EventNews">
+            <summary>
+            Событие-новость
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.EventNews.id">
+            <summary>
+            Идентификатор доставки
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.EventNews.type">
+            <summary>
+            Тип события.
+            [
+            "PUBLICATION" - первичное опубликование,
+            "REPUBLICATION" - переопубликование новости,
+            "REVOCATION" - аннулирование новости
+            ]
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.EventNews.datetime">
+            <summary>
+            Дата и время события в формате ISO 8601 YYYY-MM-DDTHH:MM:SS+00:00 (во временной зоне UTC)
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.EventNews.news">
+            <summary>
+            Данные новости
+            </summary>
+        </member>
+        <member name="T:publishing_api.Entities.Link">
+            <summary>
+            Связанная новость
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.Link.type">
+            <summary>
+            Тип связи.
+            [
+            "REPUBLICATION" - текущая новость является переопубликованием,
+            "REVOCATION" - текущая новость является аннулированием,
+            "EXTENSION" - текущая новость является расширением
+            ]
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.Link.news_id">
+            <summary>
+            Идентификатор родительской новости
+            </summary>
+        </member>
+        <member name="T:publishing_api.Entities.News">
+            <summary>
+            Данные новости
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.News.id">
+            <summary>
+            Идентификатор новости
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.News.parent_id">
+            <summary>
+            Идентификатор родительской новости
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.News.type">
+            <summary>
+            Тип новости.
+            [
+            "FLASH" - молния,
+            "EXPRESS" - экспресс,
+            "NEWS" - новость
+            ]
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.News.language">
+            <summary>
+            Язык новости.
+            [
+            "RU",
+            "EN"
+            ]
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.News.slugline">
+            <summary>
+            Cлаглайн новости
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.News.header">
+            <summary>
+            Заголовок новости
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.News.trashline">
+            <summary>
+            Справочная строка
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.News.dateline">
+            <summary>
+            Дейтлайн новости
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.News.body">
+            <summary>
+            Список объектов текста новости
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.News.background">
+            <summary>
+            Список объектов текста новости
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.News.authors">
+            <summary>
+            Список авторов новости
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.News.codes">
+            <summary>
+            Список кодов новости
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.News.links">
+            <summary>
+            Список связанных новостей
+            </summary>
+        </member>
+        <member name="T:publishing_api.Entities.Section">
+            <summary>
+            Объект текста новости
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.Section.type">
+            <summary>
+            Тип объекта.
+            [
+            "TEXT" - абзац текста,
+            "TABLE" - строка таблицы
+            ]
+            </summary>
+        </member>
+        <member name="P:publishing_api.Entities.Section.data">
+            <summary>
+            Содержимое объекта
+            </summary>
+        </member>
+    </members>
+</doc>
